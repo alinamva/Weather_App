@@ -15,13 +15,13 @@ const SideBar = () => {
         </li>
         <li></li>
         <li></li>
-        <li>
+        <li className="hoverli">
           <Squares2X2Icon className="w-6" />
         </li>
-        <li>
+        <li className="hoverli">
           <MapIcon className="w-6" />
         </li>
-        <li>
+        <li className="hoverli">
           <MapPinIcon className="w-6" />
         </li>
       </ul>

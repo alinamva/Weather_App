@@ -30,7 +30,7 @@ const Curent: React.FC<DataProps> = ({ data, time, icon }) => {
     wind,
   } = data;
   return (
-    <div className="bg-darkblue2/40 backdrop-blur-md rounded-xl p-4 flex flex-col gap-4 text-white">
+    <div className="bg-darkblue2/40  backdrop-blur-md rounded-xl p-4 flex flex-col gap-4 text-white">
       <div>
         <p>Current Weather</p>
         <span>{time}</span>

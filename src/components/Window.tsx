@@ -13,6 +13,7 @@ import thunderstorm_icon from "../assets/thunderstorm_icon.png";
 import snow_icon from "../assets/snow_icon.png";
 import mist_icon from "../assets/mist_icon.png";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import Forecast from "./Forecast";
 
 export interface IWindow {
   city: string;
@@ -20,7 +21,7 @@ export interface IWindow {
 }
 
 const Window = () => {
-  const [city, setCity] = useState("");
+  const [city, setCity] = useState("Baku");
   const [time, setTime] = useState("");
   const [icon, setIcon] = useState(drizzle_icon);
   const api_key = "d5dc87c5ff563395e08edb6318fb7dea";
@@ -83,7 +84,10 @@ const Window = () => {
           <MagnifyingGlassIcon className="w-5" />
         </div>
       </div>
-      {data && <Curent data={data} time={time} city={city} icon={icon} />}
+      <div className="grid grid-cols-2 gap-5">
+        {data && <Curent data={data} time={time} city={city} icon={icon} />}
+        <Forecast city={city} />
+      </div>
     </div>
   );
 };

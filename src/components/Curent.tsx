@@ -31,18 +31,19 @@ const Curent: React.FC<DataProps> = ({ data, time, icon }) => {
     weather,
     wind,
   } = data;
+  console.log(data);
   return (
-    <div className="bg-darkblue2/40  backdrop-blur-md rounded-xl p-8 flex flex-col gap-7 text-white">
+    <div className="bg-darkblue2/40  backdrop-blur-md rounded-xl p-6 flex flex-col gap-7 text-white">
       <div>
         <p>Current Weather</p>
         <span>{time}</span>
       </div>
       <div className="flex justify-between items-center">
         <img src={icon} className="w-20" />
-        <div className="flex flex-col">
+        <div className="flex flex-col text-right">
           <h1>{name}</h1>
-          <h2 className="text-3xl">{temp}°C</h2>
-          <p className="text-right">{weather[0].description}</p>
+          <h2 className="text-3xl">{temp.toFixed(0)}°C</h2>
+          <p>{weather[0].description}</p>
         </div>
       </div>
       <div>

@@ -97,7 +97,7 @@ const Forecast: React.FC<ForecastProps> = ({ city }) => {
           })
       : [];
   return (
-    <div className="bg-darkblue2/40 flex flex-col gap-5 backdrop-blur-md rounded-xl p-8 text-white">
+    <div className="bg-darkblue2/40 flex flex-col gap-5 backdrop-blur-md rounded-xl p-6 text-white">
       <div className="flex items-center justify-between">
         <p>Forecast in {city}</p>
         <span className="bg-darkblue2/90 p-1 rounded-md text-white">
@@ -113,7 +113,7 @@ const Forecast: React.FC<ForecastProps> = ({ city }) => {
             >
               <img src={item.icon} className="w-6" />
               <span className="text-white ">
-                {item.minTemp} °C / {item.maxTemp} °C
+                {item.minTemp.toFixed(0)} °C / {item.maxTemp.toFixed(0)} °C
               </span>
               <span className="text-white ">{item.date}</span>
             </li>

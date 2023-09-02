@@ -3,6 +3,9 @@
 @layer base {
   body {
     font-family: "Roboto";
+    background-image: url(./assets/back.png);
+    background-size: cover;
+    padding: 60px 60px;
   }
   h1 {
     font-size: 24px;
@@ -21,11 +24,8 @@
 @tailwind utilities;
 @layer utilities {
   .back {
-    background-image: url(assets/back.png);
-    background-size: cover;
     width: 100%;
     height: 100vh;
-    padding: 60px 60px;
   }
   .hoverli {
     border-radius: 7px;

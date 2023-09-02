@@ -1,5 +1,5 @@
 // libary imports
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
 import axios from "axios";
 // component imports
@@ -16,17 +16,41 @@ import snow_icon from "../assets/snow_icon.png";
 import mist_icon from "../assets/mist_icon.png";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import Hourly from "./Hourly";
+import Map from "./Map";
 
 export interface IWindow {
   city: string;
   setCity: (city: string) => void;
 }
-
+export interface Coordinates {
+  lon: number;
+  lat: number;
+}
 const Window = () => {
   const [city, setCity] = useState("Baku");
   const [time, setTime] = useState("");
   const [icon, setIcon] = useState(drizzle_icon);
+  const [coordinates, setCoordinates] = useState<Coordinates>({
+    lat: 0,
+    lon: 0,
+  });
   const api_key = "d5dc87c5ff563395e08edb6318fb7dea";
+
+  useEffect(() => {
+    const fetchCoordinates = async (cityName: string) => {
+      try {
+        const response = await axios.get(
+          `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&units=Metric&appid=${api_key}`
+        );
+        const { coord } = response.data;
+        setCoordinates(coord);
+      } catch (error) {
+        console.error("Error fetching coordinates:", error);
+      }
+    };
+
+    fetchCoordinates(city);
+  }, [city]);
 
   const fetcher = async (url: string) => {
     const response = await axios.get(url);
@@ -74,7 +98,7 @@ const Window = () => {
   const { data } = useSWR(city ? apiUrl(city) : null, fetcher);
 
   return (
-    <div className="p-10 flex flex-col gap-5">
+    <div className="p-8  flex flex-col gap-5 w-full">
       <div className="flex  text-white">
         <input
           className="bg-darkblue2/40 px-3 rounded-l-xl backdrop-blur-md outline-none"
@@ -86,15 +110,24 @@ const Window = () => {
           <MagnifyingGlassIcon className="w-5" />
         </div>
       </div>
-      <div className="grid grid-cols-2 gap-5">
-        {data && (
-          <>
-            <Curent data={data} time={time} city={city} icon={icon} />
-            <Forecast city={city} />
-          </>
-        )}
-      </div>
-      <Hourly city={city} />
+      {data && (
+        <>
+          <div className="grid grid-cols-2 gap-5">
+            <div className="flex flex-col  gap-5">
+              <div className="grid grid-cols-2 gap-5">
+                <Curent data={data} time={time} city={city} icon={icon} />
+                <Forecast city={city} />
+              </div>
+              <div>
+                <Hourly city={city} />
+              </div>
+            </div>
+            <div className="w-full pr-5 ">
+              <Map coordinates={coordinates} />
+            </div>
+          </div>
+        </>
+      )}
     </div>
   );
 };

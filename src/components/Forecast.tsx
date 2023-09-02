@@ -1,6 +1,7 @@
+// library imports
 import axios from "axios";
 import useSWR from "swr";
-
+//icon imports
 import cloudy_icon from "../assets/cloudy_icon.png";
 import drizzle_icon from "../assets/drizzle_icon.png";
 import sunny_icon from "../assets/sunny_icon.png";
@@ -10,13 +11,14 @@ import thunderstorm_icon from "../assets/thunderstorm_icon.png";
 import snow_icon from "../assets/snow_icon.png";
 import mist_icon from "../assets/mist_icon.png";
 
-interface ForecastProps {
+export interface ForecastProps {
   city: string;
 }
-interface WeatherData {
+export interface WeatherData {
   list: {
     dt_txt: string;
     main: {
+      temp: number;
       temp_min: number;
       temp_max: number;
     };
@@ -26,6 +28,38 @@ interface WeatherData {
   }[];
 }
 
+export const mapWeatherIconToImage = (weatherIcon: string) => {
+  switch (weatherIcon) {
+    case "01d":
+    case "01n":
+      return sunny_icon;
+    case "02d":
+    case "02n":
+      return fewclouds_icon;
+    case "03d":
+    case "03n":
+    case "04d":
+    case "04n":
+      return cloudy_icon;
+    case "09d":
+    case "09n":
+      return rainy_icon;
+    case "10d":
+    case "10n":
+      return drizzle_icon;
+    case "11d":
+    case "11n":
+      return thunderstorm_icon;
+    case "13d":
+    case "13n":
+      return snow_icon;
+    case "50d":
+    case "50n":
+      return mist_icon;
+    default:
+      return mist_icon;
+  }
+};
 const Forecast: React.FC<ForecastProps> = ({ city }) => {
   const api_key = "d5dc87c5ff563395e08edb6318fb7dea";
   const dailyApi = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=${api_key}`;
@@ -41,38 +75,6 @@ const Forecast: React.FC<ForecastProps> = ({ city }) => {
       day: "numeric",
     };
     return new Date(dateString).toLocaleString(undefined, options);
-  };
-  const mapWeatherIconToImage = (weatherIcon: string) => {
-    switch (weatherIcon) {
-      case "01d":
-      case "01n":
-        return sunny_icon;
-      case "02d":
-      case "02n":
-        return fewclouds_icon;
-      case "03d":
-      case "03n":
-      case "04d":
-      case "04n":
-        return cloudy_icon;
-      case "09d":
-      case "09n":
-        return rainy_icon;
-      case "10d":
-      case "10n":
-        return drizzle_icon;
-      case "11d":
-      case "11n":
-        return thunderstorm_icon;
-      case "13d":
-      case "13n":
-        return snow_icon;
-      case "50d":
-      case "50n":
-        return mist_icon;
-      default:
-        return mist_icon;
-    }
   };
 
   const { data, error } = useSWR<WeatherData>(dailyApi, fetcher);
@@ -95,19 +97,25 @@ const Forecast: React.FC<ForecastProps> = ({ city }) => {
           })
       : [];
   return (
-    <div className="bg-darkblue2/40 flex flex-col gap-5 backdrop-blur-md rounded-xl p-4 text-white">
-      <div>
-        <p>Forecast for 5 days in {city}</p>
+    <div className="bg-darkblue2/40 flex flex-col gap-5 backdrop-blur-md rounded-xl p-8 text-white">
+      <div className="flex items-center justify-between">
+        <p>Forecast in {city}</p>
+        <span className="bg-darkblue2/90 p-1 rounded-md text-white">
+          5 days{" "}
+        </span>
       </div>
       <div>
-        <ul className="flex flex-col gap-5">
+        <ul className="flex flex-col gap-5 ">
           {dateData.map((item, index) => (
-            <li key={index} className="flex text-left justify-between">
-              <img src={item.icon} className="w-4" />
-              <span>
-                {item.minTemp} / {item.maxTemp}
+            <li
+              key={index}
+              className="flex text-left gap-3 items-center justify-between cursor-pointer"
+            >
+              <img src={item.icon} className="w-6" />
+              <span className="text-white ">
+                {item.minTemp} °C / {item.maxTemp} °C
               </span>
-              <span>{item.date}</span>
+              <span className="text-white ">{item.date}</span>
             </li>
           ))}
         </ul>

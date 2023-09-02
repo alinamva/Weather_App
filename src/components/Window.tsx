@@ -1,8 +1,10 @@
+// libary imports
 import { useState } from "react";
-import Curent from "../components/Curent";
 import useSWR from "swr";
 import axios from "axios";
-
+// component imports
+import Curent from "./Curent";
+import Forecast from "./Forecast";
 //icon imports
 import cloudy_icon from "../assets/cloudy_icon.png";
 import drizzle_icon from "../assets/drizzle_icon.png";
@@ -13,7 +15,7 @@ import thunderstorm_icon from "../assets/thunderstorm_icon.png";
 import snow_icon from "../assets/snow_icon.png";
 import mist_icon from "../assets/mist_icon.png";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import Forecast from "./Forecast";
+import Hourly from "./Hourly";
 
 export interface IWindow {
   city: string;
@@ -85,9 +87,14 @@ const Window = () => {
         </div>
       </div>
       <div className="grid grid-cols-2 gap-5">
-        {data && <Curent data={data} time={time} city={city} icon={icon} />}
-        <Forecast city={city} />
+        {data && (
+          <>
+            <Curent data={data} time={time} city={city} icon={icon} />
+            <Forecast city={city} />
+          </>
+        )}
       </div>
+      <Hourly city={city} />
     </div>
   );
 };

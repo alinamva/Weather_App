@@ -3,6 +3,11 @@ import { useState } from "react";
 import SideBar from "../components/SideBar";
 import Window from "../components/Window";
 
+export interface IHome {
+  handleMaps: () => void;
+  handleWindow: () => void;
+}
+
 const Home = () => {
   const [window, setWindow] = useState(true);
   const [maps, setMaps] = useState(false);

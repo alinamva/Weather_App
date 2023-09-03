@@ -5,8 +5,9 @@ import {
   Squares2X2Icon,
   SunIcon,
 } from "@heroicons/react/24/outline";
+import { IHome } from "../pages/Home";
 
-const SideBar = ({ handleWindow, handleMaps }) => {
+const SideBar: React.FC<IHome> = ({ handleWindow, handleMaps }) => {
   return (
     <div className="bg-darkblue2/40 backdrop-blur-md rounded-l-xl text-white p-4 flex justify-center  ">
       <ul className="flex flex-col gap-8 items-center ">

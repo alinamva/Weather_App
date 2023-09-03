@@ -15,17 +15,15 @@ const Hourly: React.FC<ForecastProps> = ({ city }) => {
 
   if (error) return <div>error</div>;
 
-  const currentTime = new Date();
-
   const timeData =
     data && data.list
       ? data.list
           .filter((item) => {
             const date = new Date(item.dt_txt);
-            return (
-              date.getDate() === currentTime.getDate() &&
-              date.getHours() % 3 === 0
-            ); // Filter for the current day only
+            const currentTime = new Date();
+            const nextDay = new Date(currentTime);
+            nextDay.setDate(nextDay.getDate() + 1);
+            return date >= currentTime && date <= nextDay;
           })
           .map((item) => {
             const weatherIcon = item.weather[0].icon;
@@ -43,12 +41,11 @@ const Hourly: React.FC<ForecastProps> = ({ city }) => {
             };
           })
       : [];
-
   return (
-    <div className="bg-darkblue2/40 flex flex-col gap-5 backdrop-blur-md rounded-xl p-6 text-white">
-      <h2 className="text-white">Today at</h2>
+    <div className="bg-darkblue2/40 flex flex-col gap-5 backdrop-blur-md rounded-xl p-8 text-white">
+      <h2 className="text-white">3-hour Forecast</h2>
       <div className="flex flex-col rounded-xl text-white">
-        <div className="flex items-center gap-5 justify-left">
+        <div className="flex items-center gap-5 justify-between">
           {timeData.map((item, index) => (
             <div
               key={index}
@@ -57,7 +54,7 @@ const Hourly: React.FC<ForecastProps> = ({ city }) => {
               <span>{item.time}</span>
               <img
                 src={item.icon}
-                className="w-8"
+                className="w-10"
                 alt={`Weather at ${item.time}`}
               />
               <span>{item.temp.toFixed(0)}°C</span>

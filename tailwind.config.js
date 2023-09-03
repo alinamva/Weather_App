@@ -6,6 +6,7 @@ export default {
       colors: {
         darkblue: "#294F80",
         darkblue2: "#213E63",
+        midnight: "#16082f",
         lightgrey: "#8C8C8C",
         hover: "#193458",
       },

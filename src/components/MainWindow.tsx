@@ -26,7 +26,7 @@ export interface Coordinates {
   lon: number;
   lat: number;
 }
-const Window = () => {
+const MainWindow = () => {
   const [city, setCity] = useState("Baku");
   const [time, setTime] = useState("");
   const [icon, setIcon] = useState(drizzle_icon);
@@ -130,4 +130,4 @@ const Window = () => {
   );
 };
 
-export default Window;
+export default MainWindow;

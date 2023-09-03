@@ -25,9 +25,9 @@ const Map = ({ coordinates }: CoordinatesProps) => {
 
   const mapTileUrl = `https://tile.openweathermap.org/map/${layer}/${zoom}/${x}/${y}.png?appid=${apiKey}`;
   return (
-    <div className="bg-darkblue2/40 p-6 rounded-xl w-full">
-      <div className=" bg-darkblue rounded-xl">
-        <img src={mapTileUrl} alt="Map" className="w-full  h-full rounded-xl" />
+    <div className="bg-darkblue2/40 rounded-xl w-full h-full">
+      <div className=" bg-gray-500 rounded-xl w-full h-full">
+        <img src={mapTileUrl} alt="Map" className=" w-full rounded-xl" />
       </div>
     </div>
   );

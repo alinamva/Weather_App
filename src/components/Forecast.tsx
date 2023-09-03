@@ -97,9 +97,9 @@ const Forecast: React.FC<ForecastProps> = ({ city }) => {
           })
       : [];
   return (
-    <div className="bg-darkblue2/40 flex flex-col gap-5 backdrop-blur-md rounded-xl p-6 text-white">
+    <div className="bg-darkblue2/40 flex flex-col gap-5 backdrop-blur-md rounded-xl p-8 text-white">
       <div className="flex items-center justify-between">
-        <p>Forecast in {city}</p>
+        <h2>Forecast in {city}</h2>
         <span className="bg-darkblue2/90 p-1 rounded-md text-white">
           5 days{" "}
         </span>
@@ -109,9 +109,9 @@ const Forecast: React.FC<ForecastProps> = ({ city }) => {
           {dateData.map((item, index) => (
             <li
               key={index}
-              className="flex text-left gap-3 items-center justify-between cursor-pointer"
+              className="flex text-left  gap-3 items-center justify-between cursor-pointer"
             >
-              <img src={item.icon} className="w-6" />
+              <img src={item.icon} className="w-7" />
               <span className="text-white ">
                 {item.minTemp.toFixed(0)} °C / {item.maxTemp.toFixed(0)} °C
               </span>

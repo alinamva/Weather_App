@@ -1,6 +1,5 @@
 // component imports
 import { useState } from "react";
-import Maps from "../components/Maps";
 import SideBar from "../components/SideBar";
 import Window from "../components/Window";
 
@@ -20,8 +19,7 @@ const Home = () => {
   return (
     <div className="w-full bg-darkblue/50  backdrop-blur-sm rounded-xl flex">
       <SideBar handleWindow={handleWindow} handleMaps={handleMaps} />
-      {window && <Window />}
-      {maps && <Maps />}
+      <Window window={window} maps={maps} />
     </div>
   );
 };

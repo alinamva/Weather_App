@@ -1,4 +1,4 @@
-import { Coordinates } from "./Window";
+import { Coordinates } from "./MainWindow";
 
 interface CoordinatesProps {
   coordinates: Coordinates;
